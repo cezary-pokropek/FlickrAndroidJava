@@ -1,0 +1,3 @@
+rootProject.name='javaFundamentals'
+include ':app'
+include ':lib'
