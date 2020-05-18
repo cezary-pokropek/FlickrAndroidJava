@@ -11,8 +11,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_search">Search Activity</string>
     <string name="title_activity_photo_detail">Photo Detail</string>
-    <string name="photo_tags">TextView</string>
-    <string name="photo_title">TextView</string>
+    <string name="photo_tags">Tags: %s</string>
+    <string name="photo_title">Title: %s</string>
     <string name="photo_author">TextView</string>
     <string name="photo_image">TODO</string>
+    <string name="browse_image_description">Downloaded Flickr photo</string>
+    <string name="activity_search">Search</string>
 </resources>
