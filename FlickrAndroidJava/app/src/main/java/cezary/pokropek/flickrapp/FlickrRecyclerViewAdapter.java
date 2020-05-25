@@ -44,36 +44,43 @@ class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecyclerViewA
         //this method is get that item from the list and put its values into the
         //viewholder widgets
 
-        // we need to add Picasso as a dependency
+        if ((mPhotosList == null) || (mPhotosList.size() == 0 )) {
+            holder.thumbnail.setImageResource(R.drawable.placeholder);
+            holder.title.setText(R.string.empty_photo);
+        } else {
 
-        /* Called by the layout manager when it wants new data in an existing row */
+            // we need to add Picasso as a dependency
 
-        //firstly we retrieved the current photo object from the list
-        Photo photoItem = mPhotosList.get(position);
-        Log.d(TAG, "onBindViewHolder: " + photoItem.getTitle() + " --> " + position);
+            /* Called by the layout manager when it wants new data in an existing row */
 
-        //  use the Picasso.width method to retrieve or get a picasso object
-        //sets the placeholder image to be used if there's an error it also has the
-        //placeholder which is there while the images are downloading
-        Picasso.with(mContext).load(photoItem.getImage())
-                .error(R.drawable.placeholder)
-                .placeholder(R.drawable.placeholder)
-                .into(holder.thumbnail);
+            //firstly we retrieved the current photo object from the list
+            Photo photoItem = mPhotosList.get(position);
+            Log.d(TAG, "onBindViewHolder: " + photoItem.getTitle() + " --> " + position);
 
-        // where we store the downloaded image into the imageview widget in the viewholder so
-        //picasso goes away and download the image from the URL on a background
-        //thread and put it into the imageview once it's downloaded our method doesn't
-        //wait for the download to finish
+            //  use the Picasso.width method to retrieve or get a picasso object
+            //sets the placeholder image to be used if there's an error it also has the
+            //placeholder which is there while the images are downloading
 
-        holder.title.setText(photoItem.getTitle());
+            Picasso.with(mContext).load(photoItem.getImage())
+                    .error(R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder)
+                    .into(holder.thumbnail);
 
+            // where we store the downloaded image into the imageview widget in the viewholder so
+            //picasso goes away and download the image from the URL on a background
+            //thread and put it into the imageview once it's downloaded our method doesn't
+            //wait for the download to finish
+
+            holder.title.setText(photoItem.getTitle());
+
+        }
 
     }
 
     @Override
     public int getItemCount() {
         //Log.d(TAG, "getItemCount: called");
-        return ((mPhotosList != null) && (mPhotosList).size() !=0) ? mPhotosList.size() : 0;
+        return ((mPhotosList != null) && (mPhotosList).size() !=0) ? mPhotosList.size() : 1;
     }
 
     // load a new data, this is when the querry changes and new data is downloaded we need to be able to provide the adapter with the new list

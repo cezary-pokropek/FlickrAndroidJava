@@ -1,12 +1,14 @@
 package cezary.pokropek.flickrapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -46,9 +48,14 @@ public class MainActivity extends BaseActivity implements GetFlickrJsonData.OnDa
     protected void onResume() {
         Log.d(TAG, "onPostResume: starts ");
         super.onResume();
-        GetFlickrJsonData getFlickrJsonData = new GetFlickrJsonData(this, "https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String querryResult = sharedPreferences.getString(FLICKR_QUERY, "");
+
+        if(querryResult.length() > 0 ) {
+            GetFlickrJsonData getFlickrJsonData = new GetFlickrJsonData(this, "https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true);
 //        getFlickrJsonData.executeOnSameThread("android");
-        getFlickrJsonData.execute("android");
+            getFlickrJsonData.execute(querryResult);
+        }
         Log.d(TAG, "onResume: ends ");
     }
 
